@@ -15,14 +15,27 @@ using System.Windows.Shapes;
 
 namespace SimpleCAS
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
+
+		private void runButton_Click(object sender, RoutedEventArgs e)
+		{
+			Console.Out.WriteLine("run!");
+			string input = this.inputBox.Text;
+
+			Polynomial polynomial = new Polynomial(input);
+			polynomial.Normalize();
+
+			this.normalizedBox.Text = polynomial.ToString();
+			this.derivativeBox.Text = polynomial.Differentiate();
+			this.integralBox.Text = polynomial.Integrate();
+		}
+	}
 }
