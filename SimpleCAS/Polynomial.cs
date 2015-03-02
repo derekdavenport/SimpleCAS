@@ -37,6 +37,7 @@ namespace SimpleCAS
 			Console.WriteLine(this.ToString());
 
 			// foreach cannot modify the list, so must use for
+			// search in reverse so we don't mess up the index
 			for (int i = this.Count - 2; i >= 0; i--)
 			{
 				PolynomialPart part = this[i];

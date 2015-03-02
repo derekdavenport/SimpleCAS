@@ -20,7 +20,10 @@ namespace SimpleCAS
 		{
 			this.part = part;
 
-			int index = 0;
+			// used to point to what we're looking at in the string
+			int index;
+
+			// search for coefficient
 			if (part.IndexOf('+') == 0)
 			{
 				this.positive = true;
@@ -34,17 +37,20 @@ namespace SimpleCAS
 			else
 			{
 				this.positive = true;
+				index = 0;
 			}
 
 			int start = index;
 			char[] decimals = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' };
 
-			while (index < part.Length && part.IndexOfAny(decimals, index, 1) != -1)
+			while (index < part.Length && part.IndexOfAny(decimals, index, 1) == index)
 			{
 				index++;
 			}
 
-			this.coefficient = Convert.ToSingle(part.Substring(start, index - start));
+			// parse the coefficient from string to int if one was found, otherwise 1
+			int length = index - start;
+			this.coefficient = length > 0 ? Convert.ToSingle(part.Substring(start, length)) : 1;
 			if (!this.positive)
 				this.coefficient *= -1;
 
@@ -72,7 +78,6 @@ namespace SimpleCAS
 					index++;
 					this.power = Convert.ToInt32(part.Substring(index));
 				}
-				Console.WriteLine("{0},{1}", coefficient, power);
 			}
 
 		}
@@ -88,6 +93,7 @@ namespace SimpleCAS
 			set { coefficient = value; }
 		}
 
+		// used to sort. Sort in descending order of power
 		public int CompareTo(PolynomialPart otherPart)
 		{
 			return otherPart.power - this.power;
@@ -121,7 +127,7 @@ namespace SimpleCAS
 
 		public string Integrate()
 		{
-			string integral = "";
+			string integral;
 
 			if (this.power == 0)
 			{

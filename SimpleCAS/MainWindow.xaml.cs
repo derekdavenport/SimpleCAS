@@ -20,14 +20,54 @@ namespace SimpleCAS
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		// src: https://stackoverflow.com/questions/974598/find-all-controls-in-wpf-window-by-type
+		public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+		{
+			if (depObj != null)
+			{
+				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+				{
+					DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+					if (child != null && child is T)
+					{
+						yield return (T)child;
+					}
+
+					foreach (T childOfChild in FindVisualChildren<T>(child))
+					{
+						yield return childOfChild;
+					}
+				}
+			}
+		}
+
 		public MainWindow()
 		{
 			InitializeComponent();
 		}
 
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			// make all labels focus their target on click
+			foreach (Label label in FindVisualChildren<Label>(this))
+			{
+				label.MouseLeftButtonDown += Label_MouseLeftButtonDown;
+			}
+		}
+
+		private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			// src: https://stackoverflow.com/questions/5825651/clicking-on-a-label-to-focus-another-control-in-wpf
+			// not sure what this if is for
+			if (e.ClickCount == 1)
+			{
+				Label label = (Label)sender;
+				Keyboard.Focus(label.Target);
+			}
+		}
+
 		private void runButton_Click(object sender, RoutedEventArgs e)
 		{
-			Console.Out.WriteLine("run!");
 			string input = this.inputBox.Text;
 
 			Polynomial polynomial = new Polynomial(input);

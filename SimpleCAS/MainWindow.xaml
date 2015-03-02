@@ -1,44 +1,39 @@
 ﻿<Window x:Class="SimpleCAS.MainWindow"
-				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				Title="SimpleCAS" Height="350" Width="525">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SimpleCAS" Height="Auto" Width="Auto" MinWidth="250" MinHeight="250"
+        Loaded="Window_Loaded">
 
-		<Grid>
-				<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
-						<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Label Grid.Row="0" Grid.Column="0"  Target="{Binding ElementName=inputBox, Mode=OneWay}">
-						Input
-				</Label>
-				<TextBox x:Name="inputBox" Grid.Row="0" Grid.Column="1"  Height="Auto" TextWrapping="Wrap" Width="Auto">
-						2x + 3x
-				</TextBox>
-				<Label Grid.Row="1" Grid.Column="0"  Target="{Binding ElementName=normalizedBox, Mode=OneWay}">
-						Normalized
-				</Label>
-				<TextBox x:Name="normalizedBox" Grid.Row="1"  Grid.Column="1"  Height="Auto" TextWrapping="Wrap" Width="Auto" Focusable="False">
-						5x
-				</TextBox>
-				<Label Grid.Row="2" Grid.Column="0"  Target="{Binding ElementName=derivativeBox, Mode=OneWay}">
-						Derivative
-				</Label>
-				<TextBox x:Name="derivativeBox" Grid.Row="2"  Grid.Column="1"  Height="Auto" TextWrapping="Wrap" Width="Auto">
-						x
-				</TextBox>
-				<Label Grid.Row="3" Grid.Column="0"  Target="{Binding ElementName=integralBox, Mode=OneWay}">
-						Integral
-				</Label>
-				<TextBox x:Name="integralBox" Grid.Row="3"  Grid.Column="1"  Height="Auto" TextWrapping="Wrap" Width="Auto">
-						5/2x^2+c
-				</TextBox>
-				<Button x:Name="runButton" Content="Do Math" Grid.Column="1" HorizontalAlignment="Left" Margin="72,96.4,0,-94.6" Grid.Row="4" VerticalAlignment="Top" Width="75" Click="runButton_Click"/>
-		</Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Label Grid.Row="0" Grid.Column="0"  Target="{Binding ElementName=inputBox, Mode=OneWay}" HorizontalAlignment="Right">
+			Input
+		</Label>
+		<TextBox x:Name="inputBox" Grid.Row="0" Grid.Column="1"  Height="Auto" TextWrapping="Wrap" Width="Auto" VerticalAlignment="Center">
+			5x^2+9x^8-3x^7+2x^5+4x^6-6x^2+x^4-7x^5+8x^7
+		</TextBox>
+		<Label Grid.Row="1" Grid.Column="0"  Target="{Binding ElementName=normalizedBox, Mode=OneWay}" HorizontalAlignment="Right">
+			Normalized
+		</Label>
+		<TextBox x:Name="normalizedBox" Grid.Row="1"  Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" Height="Auto" TextWrapping="Wrap" Width="Auto" VerticalAlignment="Center"/>
+		<Label Grid.Row="2" Grid.Column="0"  Target="{Binding ElementName=derivativeBox, Mode=OneWay}" HorizontalAlignment="Right">
+			Derivative
+		</Label>
+		<TextBox x:Name="derivativeBox" Grid.Row="2"  Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" Height="Auto" TextWrapping="Wrap" Width="Auto" VerticalAlignment="Center"/>
+		<Label Grid.Row="3" Grid.Column="0"  Target="{Binding ElementName=integralBox, Mode=OneWay}" HorizontalAlignment="Right">
+			Integral
+		</Label>
+		<TextBox x:Name="integralBox" Grid.Row="3"  Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" Height="Auto" TextWrapping="Wrap" Width="Auto" VerticalAlignment="Center"/>
+		<Button x:Name="runButton" Content="Do Math" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" Click="runButton_Click" HorizontalAlignment="Right"/>
+	</Grid>
 </Window>
