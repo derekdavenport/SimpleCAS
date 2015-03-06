@@ -44,6 +44,7 @@ namespace SimpleCAS
 		public MainWindow()
 		{
 			InitializeComponent();
+			
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -53,6 +54,15 @@ namespace SimpleCAS
 			{
 				label.MouseLeftButtonDown += Label_MouseLeftButtonDown;
 			}
+
+
+
+			RationalNumber r1 = new RationalNumber(2, 4);
+			RationalNumber r2 = new RationalNumber(3, 5);
+
+			RationalNumber r3 = r1 + r2;
+
+			Console.WriteLine(r3);
 		}
 
 		private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
