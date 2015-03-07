@@ -36,6 +36,8 @@ namespace SimpleCAS
 
 			Console.WriteLine(this.ToString());
 
+			// asynch idea: split into groups of pairs. Merge each if able, then marge results
+
 			// foreach cannot modify the list, so must use for
 			// search in reverse so we don't mess up the index
 			for (int i = this.Count - 2; i >= 0; i--)
@@ -58,22 +60,26 @@ namespace SimpleCAS
 
 		public string Differentiate()
 		{
-			StringBuilder builder = new StringBuilder();
+			string[] results = new string[this.Count];
+			Task<string>[] tasks = new Task<string>[this.Count];
+			var i = 0;
 			foreach (PolynomialPart part in this)
 			{
-				builder.Append(part.Differentiate());
+				tasks[i++] = Task<string>.Factory.StartNew(() => part.Differentiate());
 			}
-			return builder.ToString();
+			return String.Join("", Task.WhenAll(tasks).Result);
 		}
 
 		public string Integrate()
 		{
-			StringBuilder builder = new StringBuilder();
+			string[] results = new string[this.Count];
+			Task<string>[] tasks = new Task<string>[this.Count];
+			var i = 0;
 			foreach (PolynomialPart part in this)
 			{
-				builder.Append(part.Integrate());
+				tasks[i++] = Task<string>.Factory.StartNew(() => part.Integrate());
 			}
-			return builder.ToString();
+			return String.Join("", Task.WhenAll(tasks).Result);
 		}
 
 		public override string ToString()

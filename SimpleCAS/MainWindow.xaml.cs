@@ -83,6 +83,7 @@ namespace SimpleCAS
 			Polynomial polynomial = new Polynomial(input);
 			polynomial.Normalize();
 
+			// call these async
 			this.normalizedBox.Text = polynomial.ToString();
 			this.derivativeBox.Text = polynomial.Differentiate();
 			this.integralBox.Text = polynomial.Integrate();
