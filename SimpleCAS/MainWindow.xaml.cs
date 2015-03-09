@@ -83,10 +83,16 @@ namespace SimpleCAS
 			Polynomial polynomial = new Polynomial(input);
 			polynomial.Normalize();
 
-			// call these async
-			this.normalizedBox.Text = polynomial.ToString();
-			this.derivativeBox.Text = polynomial.Differentiate();
-			this.integralBox.Text = polynomial.Integrate();
+			Task<string>[] tasks = new Task<string>[]
+			{
+				Task<string>.Factory.StartNew(() => polynomial.ToString()),
+				Task<string>.Factory.StartNew(() => polynomial.Differentiate()),
+				Task<string>.Factory.StartNew(() => polynomial.Integrate())
+			};
+			Task.WaitAll(tasks);
+			this.normalizedBox.Text = tasks[0].Result;
+			this.derivativeBox.Text = tasks[1].Result;
+			this.integralBox.Text   = tasks[2].Result;
 		}
 	}
 }
