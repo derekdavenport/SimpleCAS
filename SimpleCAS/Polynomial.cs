@@ -60,7 +60,6 @@ namespace SimpleCAS
 
 		public string Differentiate()
 		{
-			string[] results = new string[this.Count];
 			Task<string>[] tasks = new Task<string>[this.Count];
 			var i = 0;
 			foreach (PolynomialPart part in this)
@@ -72,7 +71,6 @@ namespace SimpleCAS
 
 		public string Integrate()
 		{
-			string[] results = new string[this.Count];
 			Task<string>[] tasks = new Task<string>[this.Count];
 			var i = 0;
 			foreach (PolynomialPart part in this)
